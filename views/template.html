@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Program overview Pdf</title>
+    <style>
+        .row:after { content: ""; display: table; clear: both; }
+        .column1 { float: left; min-width: 10%; max-width: 40%; }
+        .column2 { float: left; width: 60%; padding: 5px; }
+        .day_info { margin: 11px 0px; padding: 7px; font-size: 19px; border-radius: 3px; }
+        .session_name { }
+        .faculty_data { margin: 11px;padding: 7px; }
+        .card { background: #fff; }
+        .bgBlue { background: #334eff; }
+        .bgViolet { background: #714475; }
+        .orangeText { font-size: 20px !important; padding-left: 10px; padding-top: 10px; color: #FF8800; }
+        .HeadingText { font-size: 20px !important; padding-left: 10px; color: #fff; font-family: sans-serif; }
+        .faculty_name { color: #201515; padding: 5px 15px; background: #f5f0ea; }
+        .session_background { margin: 0px 25px 10px; border-radius: 3px; border: 1px solid rgba(0, 0, 0, 0.175); }
+        .container-fluid { background-color: #2B3DAC; }
+        .mainCardTitle { background-color: #ECEEFF; }
+        .bgOrange { background-color: rgb(209, 96, 44); }
+        .dayBtn { border: 2px solid #FF8800; }
+        .previewBtn { background-color: #334EFF; }
+        .alert { background-color: #6A6A6A; }
+        .timeInput { margin-right: 10px !important; }
+        .sessionInput { width: 191px; margin-right: 10px !important; }
+        .btn-success { background-color: #009505; }
+        .orangeBorder { border: 1px solid rgb(240, 117, 61); }
+        .rightBorder { border-right: 1px solid rgb(240, 117, 61); }
+        .shadowDark { box-shadow: 0 .125rem .25rem grey!important; }
+        .textBlue { color: #132fe0; }
+        .bgLightBlue { background-color: rgb(203, 213, 255); }
+        .border-warning { border-left: 4px solid rgb(240, 117, 61) !important; }
+        .border-warning-blue { border-left: 4px solid #334eff !important; }
+        .fontBold { font-weight: 500; }
+        .sideCard { box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px !important; position: -webkit-sticky; position: sticky; top: 0; padding: 50px; }
+        .font_family { font-family: Roboto,Helvetica Neue,sans-serif; }
+        th, td { font-size: 15px; }
+        td { font-size: 15px; }
+    </style>
+</head>
+<body style="max-width: 1000px;margin:0 auto">
+    <header>
+        {{#if header}}
+            <img alt="event_header_image" src="{{header}}" style="display:block;width: 100%;" border="0" class="CToWUd">
+        {{/if}}
+    </header>
+    {{#each outDataArray}}
+        <div class="day_wise_session py-3" style="background: #fff;padding-top:5px"> 
+            <div class="day_info orangeText" style="color: #fff; background: #475ffb;margin-bottom: 10px;align-items: center;">
+                <div class="HeadingText" style="font-size:18px;display:inline-flex !important; font-family:Roboto,Helvetica Neue,sans-serif; vertical-align:middle">
+                    <img src="month_icon.png" alt="" style="padding-right:5px;padding-top:5px;vertical-align:middle" />
+                    Day {{this.day}} : {{this.date}}
+                </div>
+                <div class="HeadingText" style="font-size:18px; float:right; padding:0;padding-right:5px; margin:auto; vertical-align:middle">
+                    <img src="hall_icon.png" alt="" style="padding-right:5px;padding-top:5px;vertical-align:middle" />
+                    {{this.hall_name}}
+                </div>
+            </div>
+            {{#each this.scientific_program_data}}
+                <div class="session_background">    
+                    <div class="bgLightBlue" style="padding: 12px 13px;padding: 8px 12px;font-size: 18px;font-family: Roboto,Helvetica Neue,sans-serif;">
+                        <p style="font-size: 15px;display:inline !important;font-family: sans-serif;">
+                            <b>{{this.from_time}} - {{this.to_time}} :</b>
+                        </p>
+                        <p style="font-size: 15px;display:inline !important;font-family: sans-serif;">
+                            <b>{{this.session_name}}</b>
+                        </p>
+                    </div>
+                    <div class="session_name" style="padding:8px;">
+                        {{#each this.faculty_data}}
+                            <div class="row" style="margin:0px 5px;margin-bottom: 0px;border-left: 4px solid #f36f18;border-bottom:1px solid #767676">
+                                <p class="" style="font-size: 15px;padding-left:13px;font-family: Roboto,Helvetica Neue,sans-serif;margin-bottom: 0px;color:#201515;margin:0px;padding-top: 5px;padding-bottom: 5px;width: 100% !important;padding-top: 5px;padding-bottom: 5px"><b>{{@key}} :</b>
+                                    {{#each this}}
+                                        {{this}}{{#unless @last}}, {{/unless}}
+                                    {{/each}}
+                                </p>
+                            </div>
+                        {{/each}}
+                    </div>
+                    <div class="session_name">
+                        <p class="orangeText font_family" style="font-size: 14px; color: #ff6500; margin: 8px;">Topic Details</p>
+                        <table class="table table-bordered table-striped mt-2" style="border: 1px solid #767676;border-collapse: collapse;padding: 5px;width:100%;font-family: Roboto,Helvetica Neue,sans-serif;">
+                            <thead class="bgLightBlue">
+                                <tr class="text-center">
+                                    <th style="width: 25% !important;border: 1px solid #767676;border-collapse: collapse;padding: 5px;" scope="col">Time</th>
+                                    <th style="width: 30% !important;border: 1px solid #767676;border-collapse: collapse;padding: 5px;" scope="col">Topic Name</th>
+                                    <th style="width: 25% !important;border: 1px solid #767676;border-collapse: collapse;padding: 5px;" scope="col">Speaker</th>
+                                    <th style="width: 20% !important;border: 1px solid #767676;border-collapse: collapse;padding: 5px;" scope="col">Topic Duration</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each this.topic_data}}
+                                    <tr class="text-center">
+                                        <td style="border: 1px solid #767676;border-collapse: collapse;padding: 5px;text-align:center">{{this.topic_from_time}} - {{this.topic_to_time}}</td>
+                                        <td style="border: 1px solid #767676;border-collapse: collapse;padding: 5px;text-align:center">{{this.topic_name}}</td>
+                                        <td style="border: 1px solid #767676;border-collapse: collapse;padding: 5px;text-align:center">
+                                            {{#each this.topic_speaker_data}}
+                                                {{this.f_name}} {{this.l_name}}{{#unless @last}}, {{/unless}}
+                                            {{/each}}
+                                        </td>
+                                        <td style="border: 1px solid #767676;border-collapse: collapse;padding: 5px;text-align:center">{{this.topic_duration}}</td>
+                                    </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+    {{/each}}
+    <footer>
+        {{#if footer}}
+            <img alt="event_header_image" src="{{footer}}" style="display:block;width: 100%;margin-top: 12px;" border="0" class="CToWUd">
+        {{/if}}
+    </footer>
+</body>
+</html>
