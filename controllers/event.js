@@ -38,7 +38,7 @@ function formatDateToDMYWithTime(dateString) {
     return `${formattedDay}-${formattedMonth}-${year} ${formattedHours}:${formattedMinutes} ${ampm}`;
 }
 
-/* format the date time */
+/* format the date */
 function formatDateToDMY(dateString) {
     // Create a Date object from the date string
     const date = new Date(dateString);
@@ -54,6 +54,31 @@ function formatDateToDMY(dateString) {
 
     // Combine the components into a string in d-m-Y h:i A format
     return `${formattedDay}-${formattedMonth}-${year}`;
+}
+
+/* format the time */
+function formatTime(timeString) {
+    // Split the time string into hours and minutes
+    let [hours, minutes] = timeString.split(':').map(Number);
+    // console.log(hours);
+    // console.log(minutes);
+
+    // Determine AM or PM
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+
+    // Convert 24-hour format to 12-hour format
+    hours = hours % 12;
+    // console.log(hours);
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    // console.log(hours);
+
+    // Pad hours and minutes with leading zeros if necessary
+    const formattedHours = hours < 10 ? '0' + hours : hours;
+    const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+    // console.log(formattedHours, formattedMinutes);
+
+    // Combine the components into a string in H:i AM/PM format
+    return `${formattedHours}:${formattedMinutes} ${ampm}`;
 }
 
 /* get scientific program overview data */
@@ -79,8 +104,8 @@ async function getScientificProgramForAllProgramOverviewPdf(event_id, date, hall
             scientific_program_id: row.id,
             event_id: row.event_id,
             hall_id: row.hall_id,
-            from_time: row.from_time,
-            to_time: row.to_time,
+            from_time: formatTime(row.from_time),
+            to_time: formatTime(row.to_time),
             session_type: row.session_type,
             session_name: row.session_name,
             faculty_data: await getAllFacultyData(row.id, row.event_id, row.hall_id, row.date),
@@ -91,7 +116,6 @@ async function getScientificProgramForAllProgramOverviewPdf(event_id, date, hall
 
     return scientificProgramArray;
 }
-
 
 /* get Faculty Data */
 async function getAllFacultyData(id, event_id, hall_id, date) {
@@ -502,8 +526,8 @@ class event {
                     id: row.id,
                     event_id: row.event_id,
                     conference_name: row.conference_name,
-                    from_date: row.from_date,
-                    to_date: row.to_date,
+                    from_date: formatDateToDMY(row.from_date),
+                    to_date: formatDateToDMY(row.to_date),
                     venue: row.venue,
                     address: row.address,
                     location_link: row.location_link,
@@ -591,8 +615,8 @@ class event {
                     id: row.id,
                     event_id: row.event_id,
                     conference_name: row.conference_name,
-                    from_date: row.from_date,
-                    to_date: row.to_date,
+                    from_date: formatDateToDMY(row.from_date),
+                    to_date: formatDateToDMY(row.to_date),
                     venue: row.venue,
                     address: row.address,
                     location_link: row.location_link,
@@ -727,9 +751,9 @@ class event {
                         event_id: row.event_id,
                         hall_id: row.hall_id,
                         hall_name: hall_name,
-                        date: row.date,
-                        from_time: row.from_time,
-                        to_time: row.to_time,
+                        date: formatDateToDMY(row.date),
+                        from_time: formatTime(row.from_time),
+                        to_time: formatTime(row.to_time),
                         session_type: row.session_type,
                         session_name: row.session_name,
                         session_condition: row.session_condition,
@@ -841,7 +865,7 @@ class event {
                     // const filePath = `public/pdf/session_schedule_1.pdf`;
                     const fileName = `session_schedule_1.pdf`;
                     const filePath = path.join(__dirname, '../public/pdf', fileName);
-                    const fileUrl = `${process.env.BASE_URL}/public/excel/${fileName}`;
+                    const fileUrl = `${process.env.BASE_URL}/public/pdf/${fileName}`;
 
                     generateHtmlPDF(eventArr, eventDetailsResults.event_email_header, eventDetailsResults.event_email_footer, filePath , (err, result) => {
                         if (err) {
@@ -1041,7 +1065,7 @@ class event {
                     const filePath = path.join(__dirname, '../public/excel', fileName);
                     const fileUrl = `${process.env.BASE_URL}/public/excel/${fileName}`;
                     // console.log('filePath- ', filePath);
-                    // console.log('fileUrl- ', fileUrl);
+                    // console.log('fileurl- ', fileUrl);
             
                     // Create a new Excel workbook and worksheet
                     let workbook = new Excel.Workbook();
@@ -1090,11 +1114,6 @@ class event {
             });
         }
 
-    }
-
-    /* Test the Mail in node js  */
-    async sendMailTest(req, res) {
-        
     }
 }
 

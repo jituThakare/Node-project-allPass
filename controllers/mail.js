@@ -2,21 +2,36 @@ var nodemailer = require('nodemailer');
 
 const sendMailTest = (req, res) => {
     var transporter = nodemailer.createTransport({
-        service: 'gmail',
+        host: 'mail.piexxi.com',
+        port: 465,
+        secure: true, // true for 465, false for other ports
         auth: {
-            user: 'All Pass',
-            pass: 'r9y}46D9@6IP'
+            user: 'swapnil@piexxi.com',
+            pass: 'F}l%UUjEi8wF'
         }
     });
     var mailOptions = {
-        from: 'allpass@piexxi.in',
+        from: 'swapnil@piexxi.com',
         to: 'swapnil.thakre3@gmail.com',
         subject: 'Sending Email using Node.js',
-        text: 'That was easy!'
+        text: 'Testing the node project all pass mail'
     };
+    // transporter.sendMail(mailOptions, function (error, info) {
+    //     if (error) {
+    //         console.log(error);
+    //     } else {
+    //         console.log('Email sent: ' + info.response);
+    //         res.send('Email sent: ' + info.response);
+    //     }
+    // });
+
     transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
-            console.log(error);
+            console.log('Error occurred: ' + error.message);
+            if (error.code === 'ECONNRESET') {
+                console.log('Connection was reset by the server.');
+            }
+            res.status(500).send('Error sending email: ' + error.message);
         } else {
             console.log('Email sent: ' + info.response);
             res.send('Email sent: ' + info.response);
