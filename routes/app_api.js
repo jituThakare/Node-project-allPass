@@ -7,6 +7,7 @@ const loginController = require("../controllers/login");
 const userController = require("../controllers/user");
 const eventController = require("../controllers/event");
 const sendMailTest = require("../controllers/mail");
+const importController = require("../controllers/importFile");
 const upload = require("../middlewares/upload");
 /* use for authenticate api */
 const authenticate = require("../middlewares/authenticate");
@@ -23,5 +24,6 @@ router.post("/getScheduleListByEventId", authenticate, formUpload.none(), eventC
 router.post("/downloadSessionPdf", authenticate, formUpload.none(), eventController.downloadSessionPdf);
 router.post("/dowloadExcelForDayWiseReport", authenticate, formUpload.none(), eventController.dowloadExcelForDayWiseReport);
 router.post("/sendMailTest", formUpload.none(), sendMailTest);
+router.post("/importTravelData", upload.single('impTravelFile'), importController.importTravelData);
 
 module.exports = router;

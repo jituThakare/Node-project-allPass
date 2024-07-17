@@ -16,24 +16,15 @@ const sendMailTest = (req, res) => {
         subject: 'Sending Email using Node.js',
         text: 'Testing the node project all pass mail'
     };
-    // transporter.sendMail(mailOptions, function (error, info) {
-    //     if (error) {
-    //         console.log(error);
-    //     } else {
-    //         console.log('Email sent: ' + info.response);
-    //         res.send('Email sent: ' + info.response);
-    //     }
-    // });
-
     transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
             console.log('Error occurred: ' + error.message);
             if (error.code === 'ECONNRESET') {
-                console.log('Connection was reset by the server.');
+                // console.log('Connection was reset by the server.');
             }
             res.status(500).send('Error sending email: ' + error.message);
         } else {
-            console.log('Email sent: ' + info.response);
+            // console.log('Email sent: ' + info.response);
             res.send('Email sent: ' + info.response);
         }
     });
