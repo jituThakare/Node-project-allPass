@@ -8,7 +8,7 @@ const authenticate = require('./middlewares/authenticate');
 const app = express();
 // Run Server
 // const PORT = process.env.PORT || 8000;
-const port = 5000;
+const port = 4000;
 
 // Middleware
 app.use(cors());

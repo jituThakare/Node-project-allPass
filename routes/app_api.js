@@ -25,5 +25,6 @@ router.post("/downloadSessionPdf", authenticate, formUpload.none(), eventControl
 router.post("/dowloadExcelForDayWiseReport", authenticate, formUpload.none(), eventController.dowloadExcelForDayWiseReport);
 router.post("/sendMailTest", formUpload.none(), sendMailTest);
 router.post("/importTravelData", upload.single('impTravelFile'), importController.importTravelData);
+router.post("/sentRoleEmailToSingleUser", formUpload.none(), importController.sentRoleEmailToSingleUser);
 
 module.exports = router;

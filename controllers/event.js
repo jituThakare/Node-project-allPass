@@ -948,7 +948,7 @@ class event {
                 });
             });
 
-            if (facultyResults.length > 0 || speakerResults.length > 0) { 
+            if (facultyResults.length > 0 || speakerResults.length > 0) {
                 let facultyArray = {};
                 for (const row of facultyResults) { 
                     const fromDate = new Date(row.session_start_date);
@@ -976,7 +976,7 @@ class event {
                 }
                 
                 let speakerArray = {};
-                for (const row of speakerResults) {       
+                for (const row of speakerResults) {
                     const fromDate = new Date(row.session_start_date);
                     const toDate = new Date(row.date);
                     const differenceMs = Math.abs(toDate - fromDate);
